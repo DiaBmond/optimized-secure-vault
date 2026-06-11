@@ -10,7 +10,7 @@ optimizer_runs = 200
 
 # STYLE & FORMATTING
 # Applied when running `forge fmt`
-[profile.formatter]
+[fmt]
 line_length = 120
 tab_width = 4
 bracket_spacing = true
