@@ -36,3 +36,31 @@ forge install OpenZeppelin/openzeppelin-contracts-upgradeable --no-commit
 
 # Generate standard remappings
 forge remappings > remappings.txt
+```
+
+## Testing & Verification Suite
+
+Security and reliability are enforced through a rigorous, multi-layered testing environment powered by Foundry. The testing suite goes beyond standard unit tests to include property-based fuzzing and advanced cryptographic validations.
+
+### Verification Highlights
+* **Comprehensive Unit Testing:** Absolute state validation for all ERC-20 mechanics, including minting, burning, and Pausable access controls.
+* **Property-Based Fuzzing:** Bounded and unbounded fuzz testing against transactional functions to guarantee mathematical integrity without overflow reversions.
+* **EIP-2612 Cryptographic Signatures:** Full local reconstruction of `DOMAIN_SEPARATOR` and `structHash` logic to validate off-chain `permit` signatures and state transitions.
+* **Custom Error Handling:** Strict validation of OpenZeppelin v5 custom error selectors (e.g., `OwnableUnauthorizedAccount`) for maximum gas efficiency during reverts.
+
+### Continuous Integration (CI)
+The repository implements a strict GitHub Actions pipeline. Every push and pull request automatically triggers:
+1. Code formatting and style enforcement (`forge fmt`).
+2. Contract compilation and size limit verification (`forge build --sizes`).
+3. Deep state fuzzing across 10,000 algorithmic runs (`FOUNDRY_PROFILE=ci forge test`).
+
+### Running the Tests Locally
+To execute the test suite and view detailed gas consumption reports:
+
+```bash
+# Run standard test suite with gas reporting
+forge test
+
+# Run test suite with maximum verbosity for debugging
+forge test -vvvv
+```
